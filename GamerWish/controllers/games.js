@@ -13,11 +13,38 @@ const steamUrl =
 
 const create = async (req, res) => {
   try {
-    if (req.body.name) {
-      req.body.name.trim()
-    }
+    const reqBody = req.body
 
-    const game = new Game(req.body)
+    const apid = reqBody.appId
+    const reqName = reqBody.name
+    const reqLan = reqBody.supportedLangauge
+    const reqPubId = reqBody.publisherId
+    const reqPubName = reqBody.publisherName
+    const devId = reqBody.developerId
+    const devName = reqBody.developerName
+    let reqPrice = reqBody.price
+    if (apid) {
+      apid.trim()
+    }
+    //trim the name of the game from both edges(end and start)
+    if (reqName) {
+      reqName.trim()
+      reqName.toLowerCase()
+    }
+    if (reqBody.image) {
+      reqBody.image.trim()
+    }
+    if (reqLan) reqLan.trim()
+    if (reqPubId) reqPubId.trim()
+    if (reqPubName) reqPubName.trim()
+    if (devId) devId.trim()
+    if (devName) devName.trim()
+    if (reqPrice) {
+      const price = reqPrice.parseInt()
+      if (price < 0) price *= -1
+      reqPrice = price.toString()
+    }
+    const game = new Game(reqBody)
     await game.save()
     res.redirect('/games/new')
   } catch (err) {
@@ -26,11 +53,42 @@ const create = async (req, res) => {
     res.redirect('/games/new')
   }
 }
-//add new game to the database
-const add = (req, res) => {}
-//show all the games
-const index = (req, res) => {}
-//show specific game
-const show = (req, res) => {}
-const remove = (req, res) => {}
-module.exports = { create, add, index, show, remove }
+async function show(req, res) {
+  const planet = await Game.findById(req.params.id)
+  console.log('log:' + res.render('games/show', { title: 'store games', game }))
+}
+const index = async (req, res) => {
+  const games = await Game.find({})
+  console.log(games)
+  res.render('games/index', { games, title: 'games:' })
+}
+const remove = async (req, res) => {
+  try {
+    const game = await Game.findByIdAndDelete(req.params.id)
+    if (!game) {
+      return res.status(404).json({ message: 'Game isnt availabe!' })
+    }
+    console.log('Game deleted:', game)
+    return res.status(200).json({ message: 'Game deleted successfully' })
+  } catch (err) {
+    console.error(err)
+    return res
+      .status(500)
+      .json({ message: 'some issues with deleting the game' })
+  }
+}
+const addGameToTheStore = async (req, res) => {
+  try {
+    const reqBody = req.body
+
+    const game = new Game(reqBody)
+    await game.save()
+
+    return res.status(201).json({ message: 'Game added successfully', game })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ message: 'cant add the game!' })
+  }
+}
+
+module.exports = { create, add: addGameToTheStore, index, show, remove }
