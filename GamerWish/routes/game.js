@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const gameCtrl = require('../controllers/games')
-// GET /games
+/* const gameCtrl = require('../controllers/games')
+ */
+/* // GET /games
 router.get('/', gameCtrl.index)
 // GET /games/new
 router.get('/new', gameCtrl.new)
@@ -9,3 +10,5 @@ router.get('/new', gameCtrl.new)
 router.get('/:id', gameCtrl.show)
 // POST /games
 router.post('/', gameCtrl.create)
+ */
+module.exports = router

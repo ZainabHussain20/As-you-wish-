@@ -5,4 +5,4 @@ const wishListSchema = new Schema({
   quntity: Number,
   details: { type: Schema.Types.ObjectId, ref: 'CheckOut' }
 })
-module.export = mongoose.module('WishList', wishListSchema)
+module.exports = mongoose.model('WishList', wishListSchema)

@@ -11,8 +11,10 @@ const gameSchema = new Schema(
     publisherName: String,
     developerId: String,
     developerName: String,
-    price: Number
+    price: Number,
+    //referance for the reviews
+    review: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
   },
   { timestamps: true }
 )
-module.export = mongoose.module('Game', gameSchema)
+module.exports = mongoose.model('Game', gameSchema)

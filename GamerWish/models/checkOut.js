@@ -4,4 +4,4 @@ const checkOUtSchema = new Schema({
   game: { type: Schema.Types.ObjectId, ref: 'Game' },
   quntity: { type: Number, default: 0 }
 })
-module.export = mongoose.module('checkOut', checkOUtSchema)
+module.exports = mongoose.model('checkOut', checkOUtSchema)
