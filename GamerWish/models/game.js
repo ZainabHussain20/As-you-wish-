@@ -6,7 +6,11 @@ const gameSchema = new Schema(
     name: String,
     image: String,
     pg: String,
-    supportedLangauge: String
+    supportedLangauge: String,
+    publisherId: String,
+    publisherName: String,
+    developerId: String,
+    developerName: String
   },
   { timestamps: true }
 )
