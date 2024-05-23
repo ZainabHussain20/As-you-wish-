@@ -10,7 +10,8 @@ const gameSchema = new Schema(
     publisherId: String,
     publisherName: String,
     developerId: String,
-    developerName: String
+    developerName: String,
+    price: Number
   },
   { timestamps: true }
 )
