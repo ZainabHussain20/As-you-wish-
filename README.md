@@ -32,4 +32,4 @@ Below is a basic wireframe to provide a visual representation of the Gamer Wishe
 
 ### Home Page Wireframe
 
-![Trello](https://trello.com/b/QoMGVtni/gamer-wish)
+[Trello](https://trello.com/b/QoMGVtni/gamer-wish)
