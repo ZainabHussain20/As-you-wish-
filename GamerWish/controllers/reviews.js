@@ -58,7 +58,6 @@ async function createReview(req, res) {
   }
 }
 
-// Function to get a single review by ID (optional)
 async function getReviewById(req, res) {
   try {
     const reviewId = req.params.id
