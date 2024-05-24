@@ -7,6 +7,7 @@ iv)update game data
 const mongoose = require('mongoose')
 const Game = require('../models/game')
 const Review = require('../models/review')
+const User = require('../models/user')
 const axios = require('axios')
 const steamUrl =
   'http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json'
@@ -69,7 +70,7 @@ const remove = async (req, res) => {
       return res.status(404).json({ message: 'Game isnt availabe!' })
     }
     console.log('Game deleted:', game)
-    return res.status(200).json({ message: 'Game deleted successfully' })
+    return res.redirect('/games')
   } catch (err) {
     console.error(err)
     return res
@@ -83,8 +84,7 @@ const addGameToTheStore = async (req, res) => {
 
     const game = new Game(reqBody)
     await game.save()
-
-    return res.status(201).json({ message: 'Game added successfully', game })
+    res.redirect(`/games/${game._id}`)
   } catch (err) {
     console.error(err)
     return res.status(500).json({ message: 'cant add the game!' })

@@ -11,7 +11,7 @@ const gameSchema = new Schema(
     publisherName: String,
     developerId: String,
     developerName: String,
-    price: { type: Number, minlength: 0, maxlength: 9999999 },
+    price: { type: Number, minlength: 0, maxlength: Infinity },
     //referance for the reviews
     review: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
   },

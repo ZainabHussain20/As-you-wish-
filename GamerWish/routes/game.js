@@ -10,5 +10,6 @@ router.get('/new', gameCtrl.new)
 router.get('/:id', gameCtrl.show)
 // POST /games
 router.post('/', gameCtrl.create)
+
  */
 module.exports = router
