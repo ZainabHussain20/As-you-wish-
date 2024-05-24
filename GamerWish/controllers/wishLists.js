@@ -4,7 +4,6 @@ ii)view specific game price and details
 iii)remove an item from the wishList
 iv)add item to the wishList
 */
-const mongoose = require('mongoose')
 const WishList = require('../models/wishList')
 const CheckOut = require('../models/checkOut')
 const Game = require('../models/game')
@@ -43,7 +42,7 @@ const create = async (req, res) => {
   }
 }
 
-const view = async (req, res) => {
+const index = async (req, res) => {
   try {
     const userId = req.params.userId
     const wishlist = await WishList.findOne({ user: userId }).populate(
@@ -53,7 +52,7 @@ const view = async (req, res) => {
       return res.status(404).json({ message: 'Wishlist not found!' })
     }
     // Redirect to view route
-    return res.redirect('wishlist/view')
+    return res.redirect('wishlist/index')
   } catch (err) {
     console.error(err)
     res.status(500).json({ message: 'Error retrieving wishlist!' })
@@ -123,4 +122,24 @@ const remove = async (req, res) => {
     res.status(500).json({ message: 'Error removing game from wishlist!' })
   }
 }
-module.exports = { create, view, new: add, remove }
+const show = async (req, res) => {
+  try {
+    const userId = req.params.userId
+
+    // populating 'games details'
+    const checkout = await CheckOut.findOne({ user: userId }).populate(
+      'games details'
+    )
+
+    if (!checkout) {
+      return res.status(404).json({ message: 'Checkout not found!' })
+    }
+
+    if (checkout.games.length > 0) res.render('checkout', { checkout })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Error retrieving checkout!' })
+  }
+}
+
+module.exports = { create, index, new: add, remove, show }
