@@ -85,4 +85,4 @@ const addGameToTheStore = async (req, res) => {
   }
 }
 
-module.exports = { create, add: addGameToTheStore, index, show, remove }
+module.exports = { create, new: addGameToTheStore, index, show, remove }

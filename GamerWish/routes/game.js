@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-/* const gameCtrl = require('../controllers/games')
- */
-/* // GET /games
+const gameCtrl = require('../controllers/games')
+const reviewCtrl = require('../controllers/reviews')
+// GET /games
 router.get('/', gameCtrl.index)
 // GET /games/new
 router.get('/new', gameCtrl.new)
@@ -10,6 +10,6 @@ router.get('/new', gameCtrl.new)
 router.get('/:id', gameCtrl.show)
 // POST /games
 router.post('/', gameCtrl.create)
-router.post('/games/:gameId/reviews', createReview);
- */
+router.post('/games/:gameId/reviews', reviewCtrl.createReview)
+
 module.exports = router
