@@ -1,8 +1,57 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  height: 100vh;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://www.veeforu.com/wp-content/uploads/2023/01/Metallic-pieces-in-design-with-blue-stroke-gaming-background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+main {
+  height: 100%;
+  width: 100vw;
+  background-color: #0000004b;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #ffffff87;
+}
+
+nav {
+  width: 200px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}
+
+.button1 {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 10px;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.button1:hover {
+  background: #6a6a6a;
 }
 
 a {
-  color: #00B7FF;
+  color: #000;
 }
