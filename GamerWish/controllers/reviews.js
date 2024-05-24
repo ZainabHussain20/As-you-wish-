@@ -12,11 +12,10 @@ const mongoose = require('mongoose')
 const Review = mongoose.model('Review', require('../models/review')) // Assuming review model path
 const Game = mongoose.model('Game', require('../models/game')) // Assuming game model path
 
-// Function to get all reviews (optional)
 async function getAllReviews(req, res) {
   try {
     // Populate the 'game' field in reviews with actual game data
-    const reviews = await Review.find({}).populate('game').sort('-createdAt') // Sort by creation date descending
+    const reviews = await Review.find({}).populate('game').sort('desc') // Sort by creation date descending
     res.render('reviews/index', { title: 'All Reviews', reviews })
   } catch (err) {
     console.error(err)
@@ -46,9 +45,6 @@ async function createReview(req, res) {
 
     // Save the review
     await newReview.save()
-
-    // Optional: Update game average rating (consider using middleware or background jobs)
-    // game.updateAverageRating(); // Implement logic to update average rating
 
     // Redirect to game detail page after successful creation
     res.redirect(`/games/${gameId}`)
