@@ -9,7 +9,6 @@ const axios = require('axios')
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 const gameRouter = require('./routes/game')
-const reviewRouter = require('./routes/review')
 const wishListRouter = require('./routes/wishList')
 var app = express()
 
