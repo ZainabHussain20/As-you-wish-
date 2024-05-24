@@ -4,7 +4,7 @@ const check = 'https://api.stripe.com'
 const { default: axios } = require('axios')
 /* GET home page. */
 router.get('/', async (req, res, next) => {
-  res.render('index', { title: 'Express' })
+  res.render('index', { title: 'Gamer Wish' })
 })
 
 module.exports = router
