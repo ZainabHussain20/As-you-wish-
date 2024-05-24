@@ -123,4 +123,4 @@ const remove = async (req, res) => {
     res.status(500).json({ message: 'Error removing game from wishlist!' })
   }
 }
-module.exports = { create, view, add, remove }
+module.exports = { create, view, new: add, remove }

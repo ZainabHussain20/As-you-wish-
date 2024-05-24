@@ -8,10 +8,6 @@ each user can review every game only once
 const Review = require('../models/review') // Assuming your review model
 const Game = require('../models/game') // Assuming your game model
 
-const mongoose = require('mongoose')
-const Review = mongoose.model('Review', require('../models/review')) // Assuming review model path
-const Game = mongoose.model('Game', require('../models/game')) // Assuming game model path
-
 async function getAllReviews(req, res) {
   try {
     // Populate the 'game' field in reviews with actual game data

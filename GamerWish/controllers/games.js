@@ -4,13 +4,7 @@ ii)view game
 iii)remove game
 iv)update game data
 */
-const mongoose = require('mongoose')
 const Game = require('../models/game')
-const Review = require('../models/review')
-const User = require('../models/user')
-const axios = require('axios')
-const steamUrl =
-  'http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json'
 
 const create = async (req, res) => {
   try {
