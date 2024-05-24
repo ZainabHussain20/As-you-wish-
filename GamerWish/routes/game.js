@@ -10,6 +10,6 @@ router.get('/new', gameCtrl.new)
 router.get('/:id', gameCtrl.show)
 // POST /games
 router.post('/', gameCtrl.create)
-
+router.post('/games/:gameId/reviews', createReview);
  */
 module.exports = router

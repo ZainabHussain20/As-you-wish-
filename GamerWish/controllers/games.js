@@ -4,7 +4,6 @@ ii)view game
 iii)remove game
 iv)update game data
 */
-const mongoose = require('mongoose')
 const Game = require('../models/game')
 const Review = require('../models/review')
 const User = require('../models/user')
