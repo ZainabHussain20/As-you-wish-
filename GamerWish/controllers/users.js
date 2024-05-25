@@ -10,3 +10,7 @@ ii)gamer:
 3)view the cart(view the wishList)
 4)add a review for a game
 */
+const User = require('../models/user')
+const Game = require('../models/game')
+const Review = require('../models/review')
+const WishList = require('../models/wishList')

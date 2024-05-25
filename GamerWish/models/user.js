@@ -5,7 +5,8 @@ const userSchema = new Schema(
     userId: String,
     userName: String,
     userPassword: String,
-    userType: { type: String, enum: ['gamer', 'admin'] }
+    userType: { type: String, enum: ['gamer', 'admin'] },
+    active: Boolean
   },
   { timestamps: true }
 )

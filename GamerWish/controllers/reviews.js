@@ -5,12 +5,12 @@ ii)view reviews
 constrain:
 each user can review every game only once
 */
-const Review = require('../models/review') // Assuming your review model
-const Game = require('../models/game') // Assuming your game model
+const Review = require('../models/review')
+const Game = require('../models/game')
 
 async function getAllReviews(req, res) {
   try {
-    // Populate the 'game' field in reviews with actual game data
+    // Populate the 'game' field in reviews
     const reviews = await Review.find({}).populate('game').sort('desc') // Sort by creation date descending
     res.render('reviews/index', { title: 'All Reviews', reviews })
   } catch (err) {
@@ -58,13 +58,12 @@ async function getReviewById(req, res) {
     const review = await Review.findById(reviewId).populate('game')
 
     if (!review) {
-      return res.status(404).json({ message: 'Review not found!' })
+      console.error()
     }
 
     res.render('reviews/show', { title: 'Review Details', review })
   } catch (err) {
     console.error(err)
-    res.status(500).json({ message: 'Error fetching review!' })
   }
 }
 
