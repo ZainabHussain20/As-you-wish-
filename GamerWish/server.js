@@ -5,17 +5,19 @@ var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var session = require('express-session');
 var passport = require('passport');
+const axios = require('axios');
 
 require('dotenv').config()
 require('./config/database')
 require('./config/passport');
 
-const axios = require('axios')
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
-const gameRouter = require('./routes/game')
+const gameRouter = require('./routes/games')
 const wishListRouter = require('./routes/wishList')
 var app = express()
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -31,6 +33,24 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(express.json());
+
+const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+const CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
+let accessToken = '';
+
+// Function to get access token from Twitch
+async function getAccessToken() {
+  const response = await axios.post('https://id.twitch.tv/oauth2/token', null, {
+      params: {
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          grant_type: 'client_credentials'
+      }
+  });
+  accessToken = response.data.access_token;
+}
+
 
 //Google Auth passport 
 
@@ -49,6 +69,32 @@ app.use('/wishList', wishListRouter)
 app.use(function (req, res, next) {
   next(createError(404))
 })
+
+// Endpoint to get games from IGDB
+app.get('/games', async (req, res) => {
+  try {
+      const response = await axios.post('https://api.igdb.com/v4/games', 
+      `fields id, name, genres.name, release_dates.human; limit 10;`, {
+          headers: {
+              'Client-ID': CLIENT_ID,
+              'Authorization': `Bearer ${accessToken}`,
+              'Accept': 'application/json'
+          }
+      });
+      res.json(response.data);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+
+// Middleware to ensure we have a valid access token
+app.use(async (req, res, next) => {
+  if (!accessToken) {
+      await getAccessToken();
+  }
+  next();
+});
 
 // error handler
 app.use(function (err, req, res, next) {
