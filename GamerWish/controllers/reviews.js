@@ -7,6 +7,7 @@ each user can review every game only once
 */
 const Review = require('../models/review')
 const Game = require('../models/game')
+const review = require('../models/review')
 
 async function getAllReviews(req, res) {
   try {
@@ -66,7 +67,15 @@ async function getReviewById(req, res) {
     console.error(err)
   }
 }
-
+async function removeReview(req, res) {
+  const reivew = Review(req.params)
+  const reviewId = review.id
+  const gameId = review.gameId
+  if (reviewId === review._id) {
+    review.remove(find({ reviewId, gameId }))
+    res.redirect('reviews/')
+  }
+}
 module.exports = {
   getAllReviews,
   createReview,
