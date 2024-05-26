@@ -107,5 +107,4 @@ const remove = async (req, res) => {
     console.error(err)
   }
 }
-
 module.exports = { create, new: addGameToTheStore, index, show, remove }
