@@ -35,7 +35,7 @@ const create = async (req, res) => {
     if (devId) devId.trim()
     if (devName) devName.trim()
     if (reqPrice) {
-      const price = reqPrice.parseInt()
+      const price = parseFloat(reqPrice)
       if (price < 0) price *= -1
       reqPrice = price.toString()
     }
@@ -52,6 +52,17 @@ async function show(req, res) {
   const planet = await Game.findById(req.params.id)
   console.log('log:' + res.render('games/show', { title: 'store games', game }))
 }
+const addGameToTheStore = async (req, res) => {
+  try {
+    const reqBody = req.body
+
+    const game = new Game(reqBody) //create the game
+    await game.save() //import the game details into the database
+    res.redirect(`/games/${game._id}`)
+  } catch (err) {
+    console.error(err)
+  }
+}
 const index = async (req, res) => {
   const games = await Game.find({})
   console.log(games)
@@ -61,27 +72,12 @@ const remove = async (req, res) => {
   try {
     const game = await Game.findByIdAndDelete(req.params.id)
     if (!game) {
-      return res.status(404).json({ message: 'Game isnt availabe!' })
+      console.error()
     }
     console.log('Game deleted:', game)
     return res.redirect('/games')
   } catch (err) {
     console.error(err)
-    return res
-      .status(500)
-      .json({ message: 'some issues with deleting the game' })
-  }
-}
-const addGameToTheStore = async (req, res) => {
-  try {
-    const reqBody = req.body
-
-    const game = new Game(reqBody)
-    await game.save()
-    res.redirect(`/games/${game._id}`)
-  } catch (err) {
-    console.error(err)
-    return res.status(500).json({ message: 'cant add the game!' })
   }
 }
 
