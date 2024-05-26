@@ -31,8 +31,7 @@ header {
 }
 
 nav {
-  width: 200px;
-
+  width: 2000px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,5 +52,10 @@ nav {
 }
 
 a {
-  color: #000;
+  color: #ffffff;
+}
+#googlelogo {
+  width: 20px;
+  height: 20px;
+  justify-self: end;
 }
