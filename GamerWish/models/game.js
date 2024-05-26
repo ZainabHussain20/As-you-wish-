@@ -2,16 +2,28 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const gameSchema = new Schema(
   {
-    appId: String,
-    name: String,
-    image: String,
-    ESRB: { type: String, enum: ['E', 'E+10', 'T', 'M', 'A', 'RP', 'RPM'] },
-    supportedLangauge: String,
-    publisherId: String,
-    publisherName: String,
-    developerId: String,
-    developerName: String,
-    price: { type: Number, minlength: 0, maxlength: Infinity },
+    id: String,
+    title: String,
+    thumbnail: String,
+    status: String,
+    short_description: String,
+    description: String,
+    game_url: String,
+    genre: String,
+    platform: String,
+    publisher: String,
+    developer: String,
+    release_date: String,
+    freetogame_profile_url: String,
+    minimum_system_requirements: {
+      os: String,
+      processor: String,
+      memory: String,
+      graphics: String,
+      storage: String
+    },
+    screenshots: [{ id: String, image: String }],
+
     //referance for the reviews
     review: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
   },

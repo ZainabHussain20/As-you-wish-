@@ -14,8 +14,11 @@
     "express": "~4.16.1",
     "express-session": "^1.18.0",
     "http-errors": "~1.6.3",
+    "i": "^0.3.7",
+    "install": "^0.13.0",
     "mongoose": "^8.4.0",
     "morgan": "~1.9.1",
+    "npm": "^10.8.0",
     "passport": "^0.7.0",
     "passport-google-oauth": "^2.0.0",
     "stripe": "^15.7.0"
