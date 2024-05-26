@@ -5,29 +5,32 @@ iii)remove game
 iv)update game data
 */
 const Game = require('../models/game')
-const axios = require('axios');
+const axios = require('axios')
 // Function to fetch games data from Twitch API
 exports.getGames = async (req, res) => {
   try {
     // Fetch games data from Twitch API
-    const response = await axios.post('https://api.igdb.com/v4/games', 
-      `fields id, name, genres.name, release_dates.human; limit 10;`, {
-      headers: {
-        'Client-ID': process.env.TWITCH_CLIENT_ID,
-        'Authorization': `Bearer ${accessToken}`, // Make sure to define accessToken
-        'Accept': 'application/json'
+    const response = await axios.post(
+      'https://api.igdb.com/v4/games',
+      `fields id, name, genres.name, release_dates.human; limit 10;`,
+      {
+        headers: {
+          'Client-ID': process.env.TWITCH_CLIENT_ID,
+          Authorization: `Bearer ${accessToken}`, // Make sure to define accessToken
+          Accept: 'application/json'
+        }
       }
-    });
+    )
 
     // Extract games from the response
-    const games = response.data;
+    const games = response.data
 
     // Render the 'games' view and pass the fetched games data
-    res.render('games', { games });
+    res.render('games', { games })
   } catch (error) {
-    console.error('Error fetching games from Twitch API:', error.message);
+    console.error('Error fetching games from Twitch API:', error.message)
     // Handle errors, e.g., render an error page
-    res.status(500).render('error', { error: error.message });
+    res.status(500).render('error', { error: error.message })
   }
 }
 const create = async (req, res) => {
@@ -73,7 +76,7 @@ const create = async (req, res) => {
   }
 }
 async function show(req, res) {
-  const planet = await Game.findById(req.params.id)
+  const game = await Game.findById(req.params.id)
   console.log('log:' + res.render('games/show', { title: 'store games', game }))
 }
 const addGameToTheStore = async (req, res) => {
@@ -104,5 +107,4 @@ const remove = async (req, res) => {
     console.error(err)
   }
 }
-
 module.exports = { create, new: addGameToTheStore, index, show, remove }
