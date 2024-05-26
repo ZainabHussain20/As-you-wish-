@@ -3,6 +3,7 @@ const router = express.Router()
 const gameCtrl = require('../controllers/games')
 const reviewCtrl = require('../controllers/reviews')
 const ensureLoggedIn = require('../config/ensureLoggedIn')
+const { model } = require('mongoose')
 
 // GET /games
 router.get('/', gameCtrl.index)
@@ -17,4 +18,4 @@ router.get('/:id', gameCtrl.show)
 router.post('/', gameCtrl.create)
 
 // POST /games/:gameId/reviews
-
+module.exports = router
