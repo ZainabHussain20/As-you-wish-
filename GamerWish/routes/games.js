@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const gameCtrl = require('../controllers/games');
@@ -19,3 +20,23 @@ router.post('/', gameCtrl.create);
 router.post('/:gameId/reviews', reviewCtrl.createReview);
 
 module.exports = router;
+
+const express = require('express')
+const router = express.Router()
+const gameCtrl = require('../controllers/games')
+const reviewCtrl = require('../controllers/reviews')
+const ensureLoggedIn = require('../config/ensureLoggedIn')
+
+// GET /games
+router.get('/', gameCtrl.index)
+// GET /games/new
+router.get('/new', ensureLoggedIn, gameCtrl.new)
+// GET /games/:id (show functionality) MUST be below new route
+router.get('/:id', gameCtrl.show)
+// POST /games
+router.post('/', gameCtrl.create)
+
+router.post('/games/:gameId/reviews', reviewCtrl.createReview)
+
+module.exports = router
+
