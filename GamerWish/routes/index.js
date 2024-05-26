@@ -8,6 +8,9 @@ const { default: axios } = require('axios')
 router.get('/', async (req, res, next) => {
   res.render('index', { title: 'Gamer Wish' })
 })
+router.get('/twitchcallback', async (req, res, next) => {
+  console.log(req);
+})
 
 module.exports = router
 
