@@ -14,7 +14,7 @@ const axios = require('axios')
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 const gameRouter = require('./routes/games')
-const wishListRouter = require('./routes/wishList')
+const wishListRouter = require('./routes/wishLists')
 var app = express()
 
 // view engine setup

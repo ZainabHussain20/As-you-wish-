@@ -1,10 +1,21 @@
 const express = require('express')
-const gamesController = require('../controllers/games') // Assuming the correct relative path
-
 const router = express.Router()
+const gameCtrl = require('../controllers/games')
+// const reviewCtrl = require('../controllers/reviews')
+const ensureLoggedIn = require('../config/ensureLoggedIn')
 
-router.get('/', gamesController.index) // Fetch all games
-router.post('/', gamesController.create) // Create a new game
-router.get('/:id', gamesController.show) // Show a game by ID
+// GET /games
+router.get('/', gameCtrl.index)
+
+// GET /games/new
+// router.get('/new', gameCtrl.new)
+
+// GET /games/:id (show functionality) MUST be below new route
+router.get('/:id', gameCtrl.show)
+
+// POST /games
+router.post('/', gameCtrl.create)
+
+// POST /games/:gameId/reviews
 
 module.exports = router
