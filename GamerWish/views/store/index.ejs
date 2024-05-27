@@ -8,8 +8,8 @@
     <% Gamesdata.forEach(game => { %>
     <div class="game-info" data-title="<%= game.title.toLowerCase() %>">
       <a href="/games/<%= game.id %>">
-        <p><%= game.title %></p>
         <img src="<%= game.thumbnail %>">
+        <p><%= game.title %></p>
       </a>
     </div>
     <% }); %>
