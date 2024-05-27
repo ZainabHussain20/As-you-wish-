@@ -2,14 +2,32 @@
 
 <body>
     <h1>Game List </h1>
+    <input type="text" id="searchInput" placeholder="Search games...">
+
     <div class="Game-container">
-      
       <% Gamesdata.forEach(game => { %>
-      <div class="game-info">
+      <div class="game-info" data-title = " <%game.title.toLowerCase()%>">
         <p><%= game.title %></p>
         <img src="<%= game.thumbnail %>"> 
       </div>
       <% }); %>
     </div>
+
+    <script>
+      document.getElementById('searchInput').addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        const games = document.querySelectorAll('.game-info');
+  
+        games.forEach(game => {
+          const title = game.getAttribute('title');
+          if (title.includes(filter)) {
+            game.style.display = '';
+          } else {
+            game.style.display = 'none';
+          }
+        });
+      });
+    </script>
+
   </body>
 <%- include('../partials/footer') %>
