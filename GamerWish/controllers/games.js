@@ -68,8 +68,8 @@ const create = async (req, res) => {
 }
 
 async function show(req, res) {
-  const planet = await Game.findById(req.params.id)
-  console.log('log:' + res.render('games/show', { title: 'store games', game }))
+  const game = await Game.findById(req.params.id)
+  console.log('log:' + res.render('store/show', { title: 'store games', game }))
 }
 const addGameToTheStore = async (req, res) => {
   try {
@@ -87,6 +87,7 @@ const index = async (req, res) => {
   console.log(games)
   res.render('store/games', { games, title: 'games:' })
 }
+
 const remove = async (req, res) => {
   try {
     const game = await Game.findByIdAndDelete(req.params.id)
