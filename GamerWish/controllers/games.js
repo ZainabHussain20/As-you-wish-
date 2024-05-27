@@ -79,30 +79,6 @@ const show = async (req, res) => {
 //   }
 // }
 
-// async function show(req, res) {
-//   const game = await Game.findById(req.params.id)
-//   console.log('log:' + res.render('store/show', { title: 'store games', game }))
-// }
-
-// const index = async (req, res) => {
-//   const games = await Game.find({})
-//   console.log(games)
-//   res.render('store/games', { games, title: 'games:' })
-// }
-
-// const remove = async (req, res) => {
-//   try {
-//     const game = await Game.findByIdAndDelete(req.params.id)
-//     if (!game) {
-//       console.error()
-//     }
-//     console.log('Game deleted:', game)
-//     return res.redirect('/games')
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
 module.exports = { 
   index,
   show

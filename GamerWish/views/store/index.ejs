@@ -23,7 +23,7 @@
       games.forEach(game => {
         const title = game.getAttribute('data-title');
         if (title.includes(filter)) {
-          game.style.display = '';
+          game.style.display = 'block';
         } else {
           game.style.display = 'none';
         }
