@@ -1,4 +1,15 @@
 <%- include('../partials/header') %>
 
-
+<body>
+    <h1>Game List </h1>
+    <div class="Game-container">
+      <h2>All Games:</h2>
+      <% Gamesdata.forEach(game => { %>
+      <div class="game-info">
+        <p><%= game.title %></p>
+        <img src="<%= game.short_description %>"> 
+      </div>
+      <% }); %>
+    </div>
+  </body>
 <%- include('../partials/footer') %>
