@@ -78,3 +78,14 @@ a {
 .game-info {
   margin: 5px;
 }
+
+.game-details {
+  width: 400px;
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  overflow: scroll;
+  scroll-behavior: hidden;
+  scrollbar-width: none;
+}
