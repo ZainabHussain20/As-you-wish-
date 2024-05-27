@@ -46,10 +46,12 @@ nav {
   border-radius: 10px;
   border: 2px solid black;
   cursor: pointer;
+  transition: 1.2s;
 }
 
 .button1:hover {
   background: #6a6a6a;
+  opacity: 0.6;
 }
 
 a {
@@ -69,8 +71,10 @@ a {
   align-items: center;
   justify-content: center;
   overflow-y: scroll;
+  scroll-behavior: hidden;
+  scrollbar-width: none;
 }
 
 .game-info {
-  margin: 2px;
+  margin: 5px;
 }
