@@ -9,6 +9,7 @@ body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  padding: 2px;
 }
 
 main {
@@ -67,4 +68,9 @@ a {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  overflow-y: scroll;
+}
+
+.game-info {
+  margin: 2px;
 }
