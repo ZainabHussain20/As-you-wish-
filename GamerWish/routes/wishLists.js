@@ -1,12 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const wishListCtrl = require('../controllers/wishLists')
-// GET /wishLists
-router.get('/', wishListCtrl.index)
-// GET /wishLists/new
-router.get('/new', wishListCtrl.new)
-// GET /wishLists/:id (show functionality) MUST be below new route
-router.get('/:id', wishListCtrl.show)
-// POST /wishLists
-router.post('/', wishListCtrl.create)
-module.exports = router
+const express = require('express');
+const router = express.Router();
+const wishlistCtrl = require('../controllers/wishLists');
+const ensureLoggedIn = require('../config/ensureLoggedIn'); // to ensure user is logged in
+
+router.post('/add/:gameId', ensureLoggedIn, wishlistCtrl.addToWishlist);
+router.get('/index', ensureLoggedIn, wishlistCtrl.viewWishlist); // Adjusted path for viewing wishlist
+
+module.exports = router;
