@@ -13,4 +13,4 @@ ii)gamer:
 const User = require('../models/user')
 const Game = require('../models/game')
 const Review = require('../models/review')
-const WishList = require('../models/wishList')
+const Wishlist = require('../models/wishlist')

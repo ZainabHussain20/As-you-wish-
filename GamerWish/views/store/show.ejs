@@ -16,6 +16,10 @@
     <p><a href="<%= game.game_url %>" target="_blank">Play Now</a></p>
   </div>
   <a href="/games">Back to Games List</a>
+  <form action="/wishLists/add/<%= game.id %>" method="POST"> <!-- Updated action -->
+
+    <button type="submit">Add to Wishlist</button>
+  </form>
 </body>
 
 <%- include('../partials/footer') %>

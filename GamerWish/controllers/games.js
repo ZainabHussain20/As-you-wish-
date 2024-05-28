@@ -9,7 +9,11 @@ const index = async (req, res) => {
     const response = await axios.get(gamesUrl)
     const GamestObjs = response.data
     const Gamesdata = GamestObjs.map((Gamesdata) => {
+
+      const newGame= new Game(Gamesdata)
+      newGame.save()
       return Gamesdata
+
     })
     res.render("store/index", {
       Gamesdata,
@@ -36,48 +40,7 @@ const show = async (req, res) => {
     res.status(500).send("Error fetching game details");
   }
 };
-// const create = async (req, res) => {
-//   try {
-//     const reqBody = req.body
 
-//     const apid = reqBody.appId
-//     const reqName = reqBody.name
-//     const reqLan = reqBody.supportedLangauge
-//     const reqPubId = reqBody.publisherId
-//     const reqPubName = reqBody.publisherName
-//     const devId = reqBody.developerId
-//     const devName = reqBody.developerName
-//     let reqPrice = reqBody.price
-//     if (apid) {
-//       apid.trim()
-//     }
-//     //trim the name of the game from both edges(end and start)
-//     if (reqName) {
-//       reqName.trim()
-//       reqName.toLowerCase()
-//     }
-//     if (reqBody.image) {
-//       reqBody.image.trim()
-//     }
-//     if (reqLan) reqLan.trim()
-//     if (reqPubId) reqPubId.trim()
-//     if (reqPubName) reqPubName.trim()
-//     if (devId) devId.trim()
-//     if (devName) devName.trim()
-//     if (reqPrice) {
-//       const price = parseFloat(reqPrice)
-//       if (price < 0) price *= -1
-//       reqPrice = price.toString()
-//     }
-//     const game = new Game(reqBody)
-//     await game.save()
-
-//     res.status(201).json({ message: 'Game created successfully', game })
-//   } catch (error) {
-//     console.error(error)
-//     res.status(400).json({ message: 'Error creating game' })
-//   }
-// }
 
 module.exports = { 
   index,
