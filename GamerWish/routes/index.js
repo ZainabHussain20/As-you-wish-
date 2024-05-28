@@ -41,3 +41,5 @@ router.get('/logout', function (req, res) {
     res.redirect('/games')
   })
 })
+
+module.exports = router;

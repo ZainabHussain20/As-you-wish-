@@ -1,131 +1,84 @@
-/*goals:
-i)view the total price and total quantity
-ii)view specific game price and details
-iii)remove an item from the wishList
-iv)add item to the wishList
-*/
-const WishList = require('../models/wishList')
-const CheckOut = require('../models/checkOut')
-const Game = require('../models/game')
-const create = async (req, res) => {
+const Wishlist = require('../models/wishlist');
+const Game = require('../models/game');
+const axios = require('axios');
+
+const gamesUrl = "https://www.freetogame.com/api/games";
+
+// Function to fetch game data from the API
+const fetchGameData = async (gameId) => {
   try {
-    const reqBody = req.body
-    const userId = req.params.userId
-
-    let games = []
-    if (reqBody.games) {
-      games = reqBody.games
-    }
-
-    const newWishlist = new WishList({ user: userId }) // Create a new wishlist
-
-    // Check if user already has a wishlist
-    const existingWishlist = await WishList.findOne({ user: userId })
-
-    // Add games to the new wishlist
-    games.forEach((game) => newWishlist.games.push(game))
-
-    await newWishlist.save()
-
-    return res.redirect(`/wishlist/${newWishlist._id}`) // Redirect with wishlist ID
-  } catch (err) {
-    console.error(err)
+    const response = await axios.get(`https://www.freetogame.com/api/game?id=${gameId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching game data from API:", error);
+    throw new Error("Error fetching game data from API");
   }
-}
+};
 
-const index = async (req, res) => {
-  try {
-    const userId = req.params.userId
-    const wishlist = await WishList.findOne({ user: userId }).populate(
-      'games details'
-    )
-    if (!wishlist) {
-      console.error(wishlist)
-    }
-    // Redirect to view route
-    return res.redirect('wishlist/index')
-  } catch (err) {
-    console.error(err)
-  }
-}
+// Add to wishlist function
+const addToWishlist = async (req, res) => {
+  const userId = req.user._id;
+  const gameId = req.params.gameId;
 
-const add = async (req, res) => {
   try {
-    const gameId = req.body.gameId //request the gameId from the body
-    const userId = req.params.userId //request the user ID from the parameters at the URL
-    const game = await Game.findById(gameId)
+    // Fetch game data from the API
+    const gameData = await fetchGameData(gameId);
+
+    // Check if the game exists in the database
+    let game = await Game.findOne({ id: gameData.id });
     if (!game) {
-      console.error(game)
+      // If the game does not exist, save it
+      game = new Game({
+        id: gameData.id,
+        title: gameData.title,
+        thumbnail: gameData.thumbnail,
+        status: gameData.status,
+        short_description: gameData.short_description,
+        description: gameData.description,
+        game_url: gameData.game_url,
+        genre: gameData.genre,
+        platform: gameData.platform,
+        publisher: gameData.publisher,
+        developer: gameData.developer,
+        release_date: gameData.release_date,
+        freetogame_profile_url: gameData.freetogame_profile_url,
+        minimum_system_requirements: gameData.minimum_system_requirements,
+        screenshots: gameData.screenshots,
+        review: []
+      });
+      await game.save();
     }
-    const wishlist = await WishList.findOneAndUpdate(
-      { user: userId },
-      { $push: { games: game._id } },
-      { new: true }
-    )
+
+    // Find or create a wishlist for the user
+    let wishlist = await Wishlist.findOne({ user: userId });
     if (!wishlist) {
-      // Create a new wishlist
-      const newWishlist = new WishList({ user: userId, games: [game._id] })
-      await newWishlist.save()
+      wishlist = new Wishlist({ user: userId, games: [] });
     }
-    // Redirect to new route
-    return res.redirect('wishlist/new')
-  } catch (err) {
-    console.error(err)
+
+    // Add the game to the wishlist if it's not already there
+    if (!wishlist.games.includes(game._id)) {
+      wishlist.games.push(game._id);
+      await wishlist.save();
+    }
+
+    res.redirect('/wishLists/index');
+  } catch (error) {
+    console.error("Error adding to wishlist:", error);
+    res.status(500).send("Error adding to wishlist");
   }
-}
-const remove = async (req, res) => {
+};
+
+// View wishlist function
+const viewWishlist = async (req, res) => {
+  const userId = req.user._id;
+
   try {
-    const gameId = req.body.gameId
-    const userId = req.params.userId
-
-    // Find wishlist and populate games for specific userID
-    const wishlist = await WishList.findOne({ user: userId }).populate('games')
-    if (!wishlist) {
-      console.error(wishlist)
-    }
-
-    const gameIndex = wishlist.games.findIndex(
-      (game) => game._id.toString() === gameId //check if the game._id  same as the gameId (which we initilize above)
-    )
-    if (gameIndex === -1) {
-      //if the index is not exist then the game is not added to the wishList for the user.
-      return console.error()
-    }
-
-    //update the quantity and price(i mean decrement the quantity and modify the total price with the new operation)
-    const game = wishlist.games[gameIndex]
-    wishlist.quantity--
-    wishlist.price -= game.price
-
-    // Remove game from wishlist array
-    wishlist.games.splice(gameIndex, 1)
-
-    // Save the updated wishlist
-    await wishlist.save()
-
-    // Redirect to wishlist view with the new data
-    return res.redirect(`/wishlist/${wishlist._id}`) // Redirect with wishlist ID
-  } catch (err) {
-    console.error(err)
+    const wishlist = await Wishlist.findOne({ user: userId }).populate('games');
+    res.render('wishlist/index', { title: 'Your Wishlist', wishlist });
+  } catch (error) {
+    console.error("Error fetching wishlist:", error);
+    res.status(500).send("Error fetching wishlist");
   }
-}
-const show = async (req, res) => {
-  try {
-    const userId = req.params.userId
+};
 
-    // populating 'games details'
-    const checkout = await CheckOut.findOne({ user: userId }).populate(
-      'games details'
-    )
-
-    if (!checkout) {
-      console.error(checkout)
-    }
-
-    if (checkout.games.length > 0) res.render('checkout', { checkout })
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-module.exports = { create, index, new: add, remove, show }
+module.exports = { addToWishlist, viewWishlist };
