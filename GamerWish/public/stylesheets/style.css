@@ -1,5 +1,6 @@
 body {
-  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  font: 14px 'Poetsen One', Helvetica, Arial, sans-serif;
+  font-family: Serif;
   height: 100vh;
   color: #fff;
   display: flex;
@@ -82,6 +83,7 @@ a {
 .game-info:hover {
   background: rgba(0, 0, 0, 0.588);
   border-radius: 10px;
+  position: absolute;
 }
 
 .game-details {
