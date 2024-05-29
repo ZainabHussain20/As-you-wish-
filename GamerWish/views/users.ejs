@@ -11,6 +11,8 @@
     <main>
       <header></header>
 
+
+
       <h1>User Profile</h1>
 
       <% if (user ||user.active) { %>
@@ -21,6 +23,7 @@
           <li>User Type: <%= user.userType %></li>
           <li>Active: <%= user.active %></li>
         </ul>
+        <a href="/users/<%= user._id %>/edit">Edit Profile</a>
 
         <% if (user.userType==='admin') { %>
           <h2>Admin Tools</h2>
@@ -30,9 +33,13 @@
             <input type="text" id="gameName" name="gameName" required />
             <button type="submit">Remove Game</button>
           </form>
+          <form action="/?_method=PUT" method="POST">
+            
+           <input type="checkbox" name="remove" id="remove">
+            <button type="submit">delete</button>
+          </form>
         <% } %>
 
-        <a href="/users/<%= user._id %>/edit">Edit Profile</a>
   
       <% } else { %>
         <p>User not found.</p>
