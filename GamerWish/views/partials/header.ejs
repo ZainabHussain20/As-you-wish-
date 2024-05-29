@@ -35,10 +35,15 @@
               <i class="material-icons-outlined">shop</i>
             </button>
           </a>
-          <a href="users/<%= user._id %>" class="user-link">
-            <i class="material-icons-outlined">person</i>
+
+          <a href="/users/<%= user._id %>" class="user-link">
+            <button class="button2">
+              <i class="material-icons-outlined">person</i>
+            </button>
           </a>
+
           <a href="/logout">LOG OUT</a>
+
           <% } else { %>
             <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"
                 id="googlelogo" /></a>
