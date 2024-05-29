@@ -1,39 +1,80 @@
-<!-- views/store/show.ejs -->
 <%- include('../partials/header') %>
 
-  <body>
-    <h1>
-      <%= game.title %>
-    </h1>
-    <div class="game-details">
-      <img src="<%= game.thumbnail %>" alt="<%= game.title %>">
-      <p>
-        <%= game.short_description %>
-      </p>
-      <p><strong>Status:</strong>
-        <%= game.status %>
-      </p>
-      <p><strong>Genre:</strong>
-        <%= game.genre %>
-      </p>
-      <p><strong>Platform:</strong>
-        <%= game.platform %>
-      </p>
-      <p><strong>Publisher:</strong>
-        <%= game.publisher %>
-      </p>
-      <p><strong>Developer:</strong>
-        <%= game.developer %>
-      </p>
-      <p><strong>Release Date:</strong>
-        <%= game.release_date %>
-      </p>
-      <p><strong>Description:</strong>
-        <%= game.description %>
-      </p>
-      <p><a href="<%= game.game_url %>" target="_blank">Play Now</a></p>
-    </div>
-    <a href="/games">Back to Games List</a>
-  </body>
+<body>
+  <h1><%= game.title %></h1>
+  <div class="game-details">
+    <img src="<%= game.thumbnail %>" alt="<%= game.title %>">
+    <p><%= game.short_description %></p>
+    <p><strong>Status:</strong> <%= game.status %></p>
+    <p><strong>Genre:</strong> <%= game.genre %></p>
+    <p><strong>Platform:</strong> <%= game.platform %></p>
+    <p><strong>Publisher:</strong> <%= game.publisher %></p>
+    <p><strong>Developer:</strong> <%= game.developer %></p>
+    <p><strong>Release Date:</strong> <%= game.release_date %></p>
+    <p><strong>Description:</strong> <%= game.description %></p>
+    <p><a href="<%= game.game_url %>" target="_blank">Play Now</a></p>
+  </div>
+  <a href="/games">Back to Games List</a>
+  <form action="/wishLists/add/<%= game.id %>" method="POST"> 
 
-  <%- include('../partials/footer') %>
+    <button type="submit">Add to Wishlist</button>
+  </form>
+</body>
+
+<br><br><h2>Reviews</h2>
+<% if (user) { %>
+<form id="add-review-form" method="POST" action="/games/<%= game._id %>/reviews">
+  <label>Review:</label>
+  <textarea name="content"></textarea>
+  <label>Rating:</label>
+  <select name="rating">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5" selected>5</option>
+  </select>
+  <input type="submit" value="Add Review">
+</form>
+<% } %>
+
+<% if ((game.reviews || []).length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Date</th>
+        <th>Review</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let total = 0 %>
+      <% game.reviews.forEach(function(r) { %>
+        <% total += r.rating %>
+        <tr>
+          <td class="review-user"><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer"><%= r.userName %></td>
+          <td><%= r.createdAt.toLocaleDateString() %></td>
+          <td><%= r.content %></td>
+          <td><%= r.rating %></td>
+          <td>
+            <% if (user?._id.equals(r.user)) { %>
+              <form action="/reviews/<%= r._id %>?_method=DELETE" method="POST">
+                <button type="submit">X</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+      <tr>
+        <td colspan="3"></td>
+        <td><strong><%= (total / game.reviews.length).toFixed(1) %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+<% } else { %>
+  <h5>No Reviews Yet</h5>
+<% } %>
+
+
+<%- include('../partials/footer') %>
