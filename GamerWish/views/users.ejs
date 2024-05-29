@@ -66,9 +66,9 @@
         <li>Active: <%= user.active %>
         </li>
       </ul>
-      <a href="/users/<%= user._id %>/edit"><button class="button2">
-          <i class="material-icons-outlined">edit</i>
-        </button></a>
+      <button id="editBtn">
+        <i class="material-icons-outlined">edit</i>
+      </button>
 
       <% if (user.userType==='admin' ) { %>
         <h2>Admin Tools</h2>
@@ -91,14 +91,34 @@
             <% } %>
 
 
+              <div id="editsection">
+                <form action="/users/<%= user._id %>?_method=PUT" method="POST">
+                  userName:
+                  <input type="text" name="userName" id="userName" /><br>
+                  Email:
+                  <input type="text" name="email" id="email" /><br>
+                  <button type="submit" id="saveBtn">edit</button>
+                </form>
+              </div>
 
-              <form action="/users/<%= user._id %>?_method=PUT" method="POST">
-                userName:
-                <input type="text" name="userName" id="userName" /><br>
-                Email:
-                <input type="text" name="email" id="email" />
-                <button type="submit">edit</button>
-              </form>
+
+              <script>
+                const editsection = document.querySelector('#editsection')
+                const editBtn = document.querySelector('#editBtn')
+                const saveBtn = document.querySelector('#saveBtn')
+
+
+                editBtn.addEventListener('click', () => {
+                  editsection.style.display = 'flex'
+                })
+
+                saveBtn.addEventListener('click', () => {
+                  editsection.style.display = 'none'
+                })
+
+
+              </script>
+
   </main>
 </body>
 

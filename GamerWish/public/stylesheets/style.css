@@ -158,3 +158,8 @@ a {
 #searchInput:hover {
   background: rgba(0, 0, 0, 0.588);
 }
+
+
+#editsection{
+  display: none;
+}
