@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>User Profile</title>
+  </head>
+  <body>
+    <main>
+      <header></header>
+
+
+
+      <h1>User Profile</h1>
+
+      <% if (user ||user.active) { %>
+        <ul>
+          <li>Username: <%= user.userName %></li>
+          <li>Email: <%= user.email %></li>
+          <li>Google ID: <%= user.googleId %></li>
+          <li>User Type: <%= user.userType %></li>
+          <li>Active: <%= user.active %></li>
+        </ul>
+        <a href="/users/<%= user._id %>/edit">Edit Profile</a>
+
+        <% if (user.userType==='admin') { %>
+          <h2>Admin Tools</h2>
+          <a href="/games/new">Add Game</a>
+          <form action="/games/remove" method="POST">
+            <label for="gameName">Enter Game Name:</label>
+            <input type="text" id="gameName" name="gameName" required />
+            <button type="submit">Remove Game</button>
+          </form>
+          <form action="/?_method=PUT" method="POST">
+            
+           <input type="checkbox" name="remove" id="remove">
+            <button type="submit">delete</button>
+          </form>
+        <% } %>
+
+  
+      <% } else { %>
+        <p>User not found.</p>
+      <% } %>
+    </main>
+  </body>
+</html>
