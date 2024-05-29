@@ -13,7 +13,7 @@
 
       <h1>User Profile</h1>
 
-      <% if (user) { %>
+      <% if (user ||user.active) { %>
         <ul>
           <li>Username: <%= user.userName %></li>
           <li>Email: <%= user.email %></li>
@@ -33,6 +33,7 @@
         <% } %>
 
         <a href="/users/<%= user._id %>/edit">Edit Profile</a>
+  
       <% } else { %>
         <p>User not found.</p>
       <% } %>
