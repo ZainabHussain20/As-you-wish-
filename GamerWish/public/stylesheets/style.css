@@ -160,6 +160,24 @@ a {
 }
 
 
+
+
+.profile-photo{
+  width: 100px;
+  height: 100px;
+  background: #00000098;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 50%;
+  
+}
+.profile-photo i{
+  font-size: 4rem;
+}
+
 #editsection{
   display: none;
 }
