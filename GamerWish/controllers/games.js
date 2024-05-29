@@ -1,6 +1,7 @@
 const axios = require('axios')
 const Game = require('../models/game')
 const mongoose = require('mongoose')
+
 const index = async (req, res) => {
   try {
     const games = await Game.find({})

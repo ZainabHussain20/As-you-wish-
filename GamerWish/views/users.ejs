@@ -20,11 +20,6 @@
               <i class="material-icons-outlined">sports_esports</i>
             </button>
           </a>
-          <!-- <a href="/store/new">
-            <button class="button1">
-              <i class="material-icons-outlined">add</i>
-            </button>
-          </a> -->
           <a href="/wishlists/index">
             <button class="button1">
               <i class="material-icons-outlined">shop</i>
@@ -40,7 +35,7 @@
       </nav>
     </header>
     <h1>User Profile</h1>
-    <% if (user) { %>
+    <% if (user && user.active) { %>
       <ul class="user-info">
         <li>Username: <%= user.userName %></li>
         <li>Email: <%= user.email %></li>
@@ -56,13 +51,14 @@
           <input type="text" id="gameName" name="gameName" required />
           <button type="submit" class="admin-button">Remove Game</button>
         </form>
-        <form action="/?_method=PUT" method="POST" class="admin-form">
+        <form action="/users/<%= user._id %>" method="PUT"class="admin-form">
+          delete account:
           <input type="checkbox" name="remove" id="remove" />
           <button type="submit" class="admin-button">Delete</button>
         </form>
       <% } %>
     <% } else { %>
-      <p>User not found.</p>
+      <p>Your account has been deactivated. Please contact support for reactivation.</p>
     <% } %>
   </main>
 </body>

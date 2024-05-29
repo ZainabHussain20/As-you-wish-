@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 
 async function create(req, res) {
   console.log('review created')
-  // const gameId =new mongoose.Types.ObjectId(req.params.id)
   const game = await Game.findOne({ id: req.params.id }).exec()
 
   // Create a new review
