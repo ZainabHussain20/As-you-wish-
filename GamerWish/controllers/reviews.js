@@ -1,6 +1,7 @@
 const Game = require('../models/game')
 const Review = require('../models/review')
 const mongoose = require('mongoose')
+
 async function create(req, res) {
   console.log('review created')
   // const gameId =new mongoose.Types.ObjectId(req.params.id)
@@ -29,11 +30,10 @@ async function create(req, res) {
   }
   res.redirect(`/games/${game.id}`)
 }
-
 async function deleteReview(req, res) {
-  const game = await Game.findOne({
-    reviews: req.params.id
-  }).populate('reviews')
+  const game = await Game.findOne({ reviews: req.params.id }).populate(
+    'reviews'
+  )
 
   if (!game) {
     console.log('Review not found')
@@ -49,18 +49,20 @@ async function deleteReview(req, res) {
 
   try {
     // Remove review from game
-    game.reviews.pull(review._id)
+    game.reviews.pull(review.id)
     await game.save()
 
     // Remove review from the database
-    await review.remove()
+    await review.deleteOne()
 
     console.log('review removed')
   } catch (err) {
-    console.log(err)
+    console.error('Error removing review:', err)
+    res.status(500).json({ message: 'Error deleting review' })
   }
 
-  res.redirect(`/games/${game._id}`)
+  // Redirect after successful deletion (ensure it's after await)
+  res.redirect(`/games/${game.id}`)
 }
 
 module.exports = {

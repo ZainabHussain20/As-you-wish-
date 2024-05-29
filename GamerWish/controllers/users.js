@@ -25,7 +25,7 @@ const isAdmin = async (req, res, next) => {
 
 async function edit(req, res) {
   try {
-    const userId = req.params.id // Assuming ID is in the URL path
+    const userId = req.params.id
     const user = await User.findById(userId)
 
     if (!user) {
