@@ -58,65 +58,93 @@
     <% if (user ||user.active) { %>
       <ul>
         <div class="profile-photo"><i class="material-icons-outlined">person</i></div>
-        <li>Username: <%= user.userName %>
-        </li>
-        <li>Email: <%= user.email %>
-        </li>
-        <li>User Type: <%= user.userType %>
-        </li>
-        <li>Active: <%= user.active %>
-        </li>
-      </ul>
-      <button id="editBtn">
-        <i class="material-icons-outlined">edit</i>
-      </button>
+        <table id="infoTable">
+          <tr>
+            <td><b>Username:</b></td>
+            <td>
+              <%= user.userName %>
+            </td>
+          </tr>
 
-      <% if (user.userType==='admin' ) { %>
-        <h2>Admin Tools</h2>
-        <a href="/games/new">Add Game</a>
-        <form action="/games/remove" method="POST">
-          <label for="gameName">Enter Game Name:</label>
-          <input type="text" id="gameName" name="gameName" required />
-          <button type="submit">Remove Game</button>
-        </form>
-        <form action="/?_method=PUT" method="POST">
-
-          <input type="checkbox" name="remove" id="remove">
-          <button type="submit">delete</button>
-        </form>
-        <% } %>
-
-
-          <% } else { %>
-            <p>User not found.</p>
-            <% } %>
-
-
-              <div id="editsection">
-                <form action="/users/<%= user._id %>?_method=PUT" method="POST">
-                  userName:
-                  <input type="text" name="userName" id="userName" /><br>
-                  Email:
-                  <input type="text" name="email" id="email" /><br>
-                  <button type="submit" id="saveBtn">edit</button>
-                </form>
-              </div>
+          <tr>
+            <td><b>Email:</b></td>
+            <td>
+              <%= user.email %>
+            </td>
+          </tr>
+          <tr>
+            <td>User Type:</td>
+            <td>
+              <%= user.userType %>
+            </td>
+          </tr>
+          <tr>
+            <td>Active:</td>
+            <td>
+              <%= user.active %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button id="editBtn">
+                <i class="material-icons-outlined">edit</i>
+              </button>
+            </td>
+          </tr>
+        </table>
 
 
-              <script>
-                const editsection = document.querySelector('#editsection')
-                const editBtn = document.querySelector('#editBtn')
-                const saveBtn = document.querySelector('#saveBtn')
+
+        <% if (user.userType==='admin' ) { %>
+          <h2>Admin Tools</h2>
+          <a href="/games/new">Add Game</a>
+          <form action="/games/remove" method="POST">
+            <label for="gameName">Enter Game Name:</label>
+            <input type="text" id="gameName" name="gameName" required />
+            <button type="submit">Remove Game</button>
+          </form>
+          <form action="/?_method=PUT" method="POST">
+
+            <input type="checkbox" name="remove" id="remove">
+            <button type="submit">delete</button>
+          </form>
+          <% } %>
 
 
-                editBtn.addEventListener('click', () => {
-                  editsection.style.display = 'flex'
-                })
+            <% } else { %>
+              <p>User not found.</p>
+              <% } %>
 
-                saveBtn.addEventListener('click', () => {
-                  editsection.style.display = 'none'
-                })
-              </script>
+
+                <div id="editsection">
+                  <form action="/users/<%= user._id %>?_method=PUT" method="POST">
+                    <label>User Name:</label><br>
+                    <input type="text" name="userName" id="userName" class="edit-input" /><br>
+                    <label>Email:</label><br>
+                    <input type="email" name="email" id="email" class="edit-input" /><br>
+                    <button type="submit" id="saveBtn">edit</button>
+                  </form>
+                </div>
+
+
+                <script>
+                  const editsection = document.querySelector('#editsection')
+                  const editBtn = document.querySelector('#editBtn')
+                  const saveBtn = document.querySelector('#saveBtn')
+                  const infoTable = document.querySelector('#infoTable')
+
+
+
+                  editBtn.addEventListener('click', () => {
+                    editsection.style.display = 'flex'
+                    infoTable.style.display = 'none'
+                  })
+
+                  saveBtn.addEventListener('click', () => {
+                    editsection.style.display = 'none'
+                    infoTable.style.display = 'flex'
+                  })
+                </script>
 
   </main>
 </body>
