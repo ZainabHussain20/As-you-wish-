@@ -16,19 +16,18 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
-  const gameId = req.params.id // Assuming "id" is in the request parameters
+  const gameId = req.params.id
 
   try {
-    // Find game by custom "id" attribute
-    const game = await Game.findOne({ id: gameId })
+    const game = await Game.findOne({ id: gameId }).populate('reviews')
+    console.log('Populated reviews:', game.reviews)
 
-    // Handle the case where the game is not found
     if (!game) {
       return res.status(404).send('Game not found')
     }
 
     res.render('store/show', {
-      title: game.title, // Assuming "title" exists in your schema
+      title: game.title,
       game
     })
   } catch (error) {
@@ -165,5 +164,3 @@ module.exports = {
 //   new: newGame,
 //   removeByName
 // }
-
-

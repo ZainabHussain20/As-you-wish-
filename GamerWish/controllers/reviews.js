@@ -1,18 +1,10 @@
 const Game = require('../models/game')
-const Review = require('../models/review');
-const mongoose = require('mongoose');
-
-
-module.exports = {
-  create,
-  delete: deleteReview
-}
-
-
+const Review = require('../models/review')
+const mongoose = require('mongoose')
 async function create(req, res) {
-  console.log('review created');
+  console.log('review created')
   // const gameId =new mongoose.Types.ObjectId(req.params.id)
-  const game = await Game.findOne({ id: req.params.id }).exec();
+  const game = await Game.findOne({ id: req.params.id }).exec()
 
   // Create a new review
   const review = new Review({
@@ -21,52 +13,57 @@ async function create(req, res) {
     user: req.user._id,
     userName: req.user.name,
     userAvatar: req.user.avatar
-  });
+  })
 
   try {
     // Save the review
-    await review.save();
-    
+    await review.save()
+
     // Add review to the game
-    game.reviews.push(review._id);
-    
+    game.reviews.push(review._id)
+
     // Save the game with the new review
-    await game.save();
+    await game.save()
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-  res.redirect(`/games/${game.id}`);
+  res.redirect(`/games/${game.id}`)
 }
 
 async function deleteReview(req, res) {
   const game = await Game.findOne({
-    'reviews': req.params.id
-  }).populate('reviews');
-  
+    reviews: req.params.id
+  }).populate('reviews')
+
   if (!game) {
-    console.log('Review not found');
-    return res.redirect('/games');
+    console.log('Review not found')
+    return res.redirect('/games')
   }
-  
-  const review = await Review.findById(req.params.id);
-  
+
+  const review = await Review.findById(req.params.id)
+
   if (review.user.toString() !== req.user._id.toString()) {
-    console.log('Unauthorized attempt to delete review');
-    return res.redirect(`/games/${game._id}`);
+    console.log('Unauthorized attempt to delete review')
+    return res.redirect(`/games/${game._id}`)
   }
 
   try {
     // Remove review from game
-    game.reviews.pull(review._id);
-    await game.save();
-    
+    game.reviews.pull(review._id)
+    await game.save()
+
     // Remove review from the database
-    await review.remove();
-    
-    console.log('review removed');
+    await review.remove()
+
+    console.log('review removed')
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-  
-  res.redirect(`/games/${game._id}`);
+
+  res.redirect(`/games/${game._id}`)
+}
+
+module.exports = {
+  create,
+  delete: deleteReview
 }

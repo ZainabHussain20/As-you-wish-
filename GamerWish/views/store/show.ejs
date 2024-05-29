@@ -15,20 +15,16 @@
     <p><a href="<%= game.game_url %>" target="_blank">Play Now</a></p>
   </div>
   <a href="/games">Back to Games List</a>
-  <form action="/wishLists/add/<%= game.id %>" method="POST"> <!-- Updated action -->
-
-    <button type="submit">Add to Wishlist</button>
+  <form action="/wishLists/add/<%= game.id %>" method="POST"> <button type="submit">Add to Wishlist</button>
   </form>
-   
-  <!-- Reviews Section -->
+
   <div class="reviews-section">
     <h3>Reviews:</h3>
     <ul>
       <% if (game.reviews && game.reviews.length > 0) { %>
         <% game.reviews.forEach(review => { %>
           <li>
-            <strong><%= review.userName %></strong> 
-            (<%= new Date(review.createdAt).toLocaleDateString() %>) - 
+            <strong><%= review.userName %></strong> (<%= new Date(review.createdAt).toLocaleDateString() %>) -
             Rating: <%= review.rating %>/5
             <p><%= review.content %></p>
             <% if (review.user.toString() === user._id.toString()) { %>
@@ -44,7 +40,6 @@
     </ul>
   </div>
 
-  <!-- Add Review Form -->
   <div class="add-review-form">
     <h3>Add a Review</h3>
     <form action="/games/<%= game.id %>/reviews" method="POST">
