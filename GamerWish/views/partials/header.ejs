@@ -19,6 +19,7 @@
     <header>
       <nav>
         <% if (user) { %>
+
           <a href="/games">
             <button class="button1">
               <i class="material-icons-outlined">sports_esports</i>
@@ -38,12 +39,9 @@
             <i class="material-icons-outlined">person</i>
           </a>
           <a href="/logout">LOG OUT</a>
-        <% } else { %>
-          <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png" id="googlelogo" /></a>
-        <% } %>
+          <% } else { %>
+            <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"
+                id="googlelogo" /></a>
+            <% } %>
       </nav>
     </header>
-
-
-
-
