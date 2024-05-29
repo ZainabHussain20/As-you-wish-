@@ -83,7 +83,6 @@ a {
 .game-info:hover {
   background: rgba(0, 0, 0, 0.588);
   border-radius: 10px;
-  position: absolute;
 }
 
 .game-details {
