@@ -24,11 +24,13 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
+  console.log('show controller')
   const gameId = req.params.id
   const gameUrl = `https://www.freetogame.com/api/game?id=${gameId}`
   try {
     const response = await axios.get(gameUrl)
     const game = response.data
+    console.log(`Game ${JSON.stringify(game)}`)
     res.render('store/show', {
       title: game.title,
       game

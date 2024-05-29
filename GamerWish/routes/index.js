@@ -2,7 +2,7 @@ var express = require('express')
 const passport = require('passport')
 
 var router = express.Router()
-const check = 'https://api.stripe.com'
+const check = 'https://www.freetogame.com/api'
 const { default: axios } = require('axios')
 /* GET home page. */
 router.get('/', async (req, res, next) => {

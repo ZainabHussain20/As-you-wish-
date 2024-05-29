@@ -12,10 +12,12 @@ require('./config/database')
 require('./config/passport')
 
 const axios = require('axios')
-var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/users')
-const gameRouter = require('./routes/games')
-const wishListRouter = require('./routes/wishLists')
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const gameRouter = require('./routes/games');
+const reviewRoutes = require('./routes/reviews');
+const wishListRouter = require('./routes/wishLists');
+
 var app = express()
 
 // view engine setup
@@ -55,10 +57,11 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
-app.use('/games', gameRouter)
-app.use('/wishList', wishListRouter)
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/games', gameRouter);
+app.use('/wishLists', wishListRouter);
+app.use('/', reviewRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
