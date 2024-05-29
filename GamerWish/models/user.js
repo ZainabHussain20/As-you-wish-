@@ -7,13 +7,14 @@ const userSchema = new Schema(
   {
     userId: String,
     userName: String,
+    email: String,
     googleId: {
       type: String,
       required: true
     },
     userPassword: String,
-    userType: { type: String, enum: ['gamer', 'admin'] },
-    active: Boolean
+    userType: { type: String, enum: ['gamer', 'admin'], default: 'gamer' },
+    active: { type: Boolean, default: true }
   },
   { timestamps: true }
 )
