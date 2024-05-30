@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games List</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games List</title>
 </head>
 <body>
-    <h1>Games List</h1>
-    <ul>
-        <% games.forEach(game=> { %>
-            <li>
-                <h2>
-                    <%= game.name %>
-                </h2>
-                <p>ID: <%= game.id %>
-                </p>
-                <p>Genres:
-                    <% game.genres.forEach(genre=> { %>
-                        <span>
-                            <%= genre.name %>
-                        </span>
-                        <% }) %>
-                </p>
-                <p>Release Date: <%= game.release_dates.length ? game.release_dates[0].human : 'N/A' %>
-                </p>
-            </li>
-            <% }) %>
-    </ul>
-</body>
+  <h1><%= game.title %></h1>
+  <h2>Reviews</h2>
+  <ul>
+    <% if (game.reviews.length > 0) { %>
+      <% game.reviews.forEach(review => { %>
+        <li>
+          <p>Rating: <%= review.rating %> stars</p>
+          <p>Content: <%= review.content %></p>
+          <% if (review.userName) { %>
+            <p>By: <%= review.userName %></p>
+          <% } %>
+        </li>
+      <% }) %>
+    <% } else { %>
+      <p>No reviews yet.</p>
+    <% } %>
+  </ul>
+  </body>
 </html>

@@ -10,8 +10,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   padding: 2px;
-  overflow: hidden;
-  position: relative;
+/*   overflow: hidden;
+ */  position: relative;
 }
 body::before {
   content: '';
@@ -98,12 +98,12 @@ a:hover {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  overflow-y: scroll;
-  scrollbar-width: none;
+/*   overflow-y: scroll;
+  scrollbar-width: none; */
 }
-.Game-container::-webkit-scrollbar {
+/* .Game-container::-webkit-scrollbar {
   width: 0;
-}
+} */
 .game-info {
   margin: 5px;
   transition: 0.3s ease-in-out;
@@ -113,8 +113,8 @@ a:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   animation: hoverGlow 3s infinite;
   position: relative;
-  overflow: hidden;
-}
+/*   overflow: hidden;
+ */}
 .game-info::before {
   content: '';
   position: absolute;

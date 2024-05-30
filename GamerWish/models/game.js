@@ -24,8 +24,7 @@ const gameSchema = new Schema(
     },
     screenshots: [{ id: String, image: String }],
 
-    //referance for the reviews
-    review: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
     deleted: {
       type: Boolean,
       default: false // Mark games as not deleted by default
